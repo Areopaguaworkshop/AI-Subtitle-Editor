@@ -17,7 +17,7 @@ Features:
 - more. 
 
 ## License:
-Gradio is licensed under the Apache License 2.0 found in the [LICENSE]() file in the root directory of this repository.
+subtitle-markdown is licensed under the Apache License 2.0 found in the [LICENSE]() file in the root directory of this repository.
 
 ## Citation:
 ```@article{areopagus/subtitle-markdown,

@@ -58,7 +58,7 @@ import os
 from getpass import getpass
 
 if "HF_API_TOKEN" not in os.environ:
-    os.environ["HF_API_TOKEN"] = getpass("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")
+    os.environ["HF_API_TOKEN"] = getpass("")
 
 
 

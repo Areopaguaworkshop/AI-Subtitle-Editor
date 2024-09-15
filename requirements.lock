@@ -54,7 +54,7 @@ dill==0.3.8
     # via multiprocess
 distro==1.9.0
     # via openai
-fastapi==0.114.1
+fastapi==0.114.2
     # via gradio
 ffmpy==0.4.0
     # via gradio
@@ -260,7 +260,7 @@ requests==2.32.3
     # via transformers
 rich==13.8.1
     # via typer
-ruff==0.6.4
+ruff==0.6.5
     # via gradio
 safetensors==0.4.5
     # via transformers
