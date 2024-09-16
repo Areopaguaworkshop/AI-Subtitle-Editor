@@ -18,6 +18,8 @@ dependencies = [
     "pypdf>=4.3.1",
     "gdown>=5.2.0",
     "gradio>=4.44.0",
+    "jupyterlab>=4.2.5",
+    "update>=0.0.1",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
