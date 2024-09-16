@@ -6,9 +6,9 @@ It is my personal project, since I have a lot of lecture with subtitle file, how
 
 Features:
 
-- delete the timestampes.
+- Remove transcript timestamps 
 
-- parallel and automatic paragraphy acoording to the content
+- join the lines to make paragraph
 
 - match the sild pictures into the correpondant paragraphy
 
