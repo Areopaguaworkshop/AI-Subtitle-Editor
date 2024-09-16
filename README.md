@@ -1,23 +1,23 @@
-# subtitle-word
+# subtitle-readable_markdown
 
-The aim of this project is turn the subtitle into a readable markdown file with pictures by using the Large Language Model (LLM). 
+The aim of this project is turn the subtitle into a readable markdown file with pictures by using AI, that is Large Language Model (LLM) promts. 
 
-It is my personal project, since I have a lot of lecture with subtitle file, however, I need turn them into a readable markdown file. 
+This is my personal project for [GCDFL](https://www.gcdfl.org/). The lectures will generate the cc.vtt or srt files. However, I want to make these files into readable markdown file for Chinese audience. 
 
-Features:
+## you can try the [demo](https://archive.gcdfl.org/), right now only remove the timestamps and joining the lines. 
 
-- Remove transcript timestamps 
+## Features:
 
-- join the lines to make paragraph
+- Remove transcript timestamps and joining the lines. 
 
-- match the sild pictures into the correpondant paragraphy
+- match the sild pictures of ppt and pptx into the correpondant paragraphy 
 
 - delete the oral words, such hi, a, ha etc. 
 
 - more. 
 
 ## License:
-subtitle-markdown is licensed under the Apache License 2.0 found in the [LICENSE]() file in the root directory of this repository.
+subtitle-markdown is licensed under the Apache License 2.0 found in the [LICENSE](https://github.com/Areopaguaworkshop/subtitle-markdown/blob/main/license.md) file in the root directory of this repository.
 
 ## Citation:
 ```@article{areopagus/subtitle-markdown,
