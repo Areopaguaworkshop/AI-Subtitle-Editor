@@ -1,6 +1,6 @@
-# subtitle-readable_markdown
+# AI subtitle Editor
 
-The aim of this project is turn the subtitle into a readable markdown file with pictures by using AI, that is Large Language Model (LLM) promts. 
+The aim of this project is turn the subtitle into a readable written file with slids by using AI, that is Large Language Model (LLM) promts. 
 
 This is my personal project for [GCDFL](https://www.gcdfl.org/). The lectures will generate the cc.vtt or srt files. However, I want to make these files into readable markdown file for Chinese audience. 
 
@@ -17,13 +17,12 @@ This is my personal project for [GCDFL](https://www.gcdfl.org/). The lectures wi
 - more. 
 
 ## License:
-subtitle-markdown is licensed under the Apache License 2.0 found in the [LICENSE](https://github.com/Areopaguaworkshop/subtitle-markdown/blob/main/license.md) file in the root directory of this repository.
+AI-Subtitle-Editor is licensed under the Apache License 2.0 found in the [LICENSE](https://github.com/Areopaguaworkshop/AI-Subtitle-Editor/blob/main/license.md) file in the root directory of this repository.
 
 ## Citation:
-```@article{areopagus/subtitle-markdown,
-  title = {subtitle-markdown},
+```@article{areopagus/AI-Subtitle-Editor,
+  title = {AI-Subtitle-Editor},
   author = {Yuan, Yongjia},
-  journal = {arXiv preprint arXiv:1906.02569},
   year = {2024},
 }
 
