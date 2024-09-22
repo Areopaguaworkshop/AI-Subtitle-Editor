@@ -99,6 +99,8 @@ defusedxml==0.7.1
 dill==0.3.8
     # via datasets
     # via multiprocess
+diskcache==5.6.3
+    # via llama-cpp-python
 distro==1.9.0
     # via openai
 docopt==0.6.2
@@ -204,6 +206,7 @@ jinja2==3.1.4
     # via jupyter-server
     # via jupyterlab
     # via jupyterlab-server
+    # via llama-cpp-python
     # via nbconvert
     # via torch
 jiter==0.5.0
@@ -268,6 +271,8 @@ lightning-utilities==0.11.7
     # via lightning
     # via pytorch-lightning
     # via torchmetrics
+llama-cpp-python==0.2.90
+    # via hays-t
 llvmlite==0.43.0
     # via numba
 lxml==5.3.0
@@ -337,6 +342,7 @@ numpy==1.26.4
     # via gradio
     # via haystack-ai
     # via librosa
+    # via llama-cpp-python
     # via matplotlib
     # via numba
     # via onnxruntime
@@ -748,6 +754,7 @@ typing-extensions==4.12.2
     # via librosa
     # via lightning
     # via lightning-utilities
+    # via llama-cpp-python
     # via openai
     # via pyannote-core
     # via pydantic
