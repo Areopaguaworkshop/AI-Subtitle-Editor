@@ -36,12 +36,15 @@ git clone https://github.com/Areopaguaworkshop/AI-Subtitle-Editor.git
 ### second step 
 
 cd AI-Subtitle-Editor
+
 mv pyproject.toml pyproject-bk.toml
+
 rye init 
 
 ### third step
 
 copy whole content of the pyproject-bk.toml into pyproject.toml
+
 Then run 
 
 rye sync
