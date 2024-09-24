@@ -24,8 +24,8 @@ dependencies = [
     "python-docx>=1.1.2",
     "whisperx>=3.1.5",
     "docx>=0.2.4",
-    "whispercpp>=0.0.17",
     "llama-cpp-python>=0.2.90",
+    "whisper-cpp-python>=0.2.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"

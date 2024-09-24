@@ -6,15 +6,53 @@ This is my personal project for [GCDFL](https://www.gcdfl.org/). The lectures wi
 
 ## you can try the [demo](https://archive.gcdfl.org/), right now only remove the timestamps and joining the lines. 
 
+# Content
+
+### Features
+
+### Install
+
 ## Features:
 
-- Remove transcript timestamps and joining the lines. 
-
-- match the sild pictures of ppt and pptx into the correpondant paragraphy 
+- Remove transcript timestamps and joining the lines. [Done] 
 
 - delete the oral words, such hi, a, ha etc. 
 
+- delete repeated words, phrase and sentences.
+
 - more. 
+
+## Install
+
+### prerequest
+- install [rye](https://rye.astral.sh/)
+
+### first step clone this repository
+
+git clone https://github.com/Areopaguaworkshop/AI-Subtitle-Editor.git
+
+### second step 
+
+cd AI-Subtitle-Editor
+mv pyproject.toml pyproject-bk.toml
+rye init 
+
+### third step
+
+copy whole content of the pyproject-bk.toml into pyproject.toml
+Then run 
+
+rye sync
+
+### four step
+
+python src/a_w_whisper-cpp.py
+
+- Then you can access the from http://localhost:7860. 
+
+Enjoy! 
+
+### Buy me a Cofee. 
 
 ## License:
 AI-Subtitle-Editor is licensed under the Apache License 2.0 found in the [LICENSE](https://github.com/Areopaguaworkshop/AI-Subtitle-Editor/blob/main/license.md) file in the root directory of this repository.
