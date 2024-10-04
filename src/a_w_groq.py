@@ -1,14 +1,12 @@
-# This version is better than a_w1.py, since it can use both in broader audio and subtitle files. it is an update version of a_w1.py. 
-
 import os
 import re
 import json
 import gradio as gr
-import whisper
 from docx import Document
+from groq import Groq
 
-# Initialize the Haystack LocalWhisperTranscriber component
-model = whisper.load_model("large-v3")
+# Set up Groq client
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 # Supported file formats
 supported_audio_formats = [".mp3", ".m4a", ".wav", ".flac", ".ogg", ".aac"]
@@ -17,9 +15,14 @@ supported_formats = supported_audio_formats + supported_subtitle_formats
 
 # Function to transcribe audio to plain text without timestamps
 def transcribe_audio_to_text(file_path):
-    result = model.transcribe(file_path, fp16=False)
-    plain_text = " ".join([segment['text'] for segment in result['segments']])
-    return plain_text.strip()
+    with open(file_path, "rb") as file:
+        transcription = client.audio.transcriptions.create(
+            file=(os.path.basename(file_path), file.read()),
+            model="whisper-large-v3",
+            response_format="text",
+            #            language = "en"+"zh"
+        )
+        return transcription 
 
 # Function to remove timestamps and join lines for subtitle files
 def remove_timestamps_and_join_lines(subtitle_text, file_extension):
@@ -70,23 +73,12 @@ def generate_docx(text, filename="cleaned_subtitles.docx"):
 # Main function to handle input files
 def process_files(files):
     # Check if files input is valid
-    if not files or not isinstance(files, list):
-        return "No files to process. Invalid input. Please upload supported audio or subtitle files."
-
     subtitles = []
-    wrong_files = []
 
     for file_path in files:
-        # Ensure file_path is a string and points to an actual file
-        if not file_path or not isinstance(file_path, str) or not os.path.isfile(file_path):
-            continue
-
         file_name = os.path.basename(file_path)
+        # file_name = os.path.basename(file_path)
         file_extension = os.path.splitext(file_name)[1].lower()
-
-        if file_extension not in supported_formats:
-            wrong_files.append(file_name)
-            continue
 
         # Step 1: If audio file, transcribe to plain text without timestamps
         if file_extension in supported_audio_formats:
@@ -107,10 +99,6 @@ def process_files(files):
             continue  # Skip unsupported file types
 
         subtitles.append((file_name, cleaned_text.strip()))
-
-    # Check if no valid files were processed
-    if not subtitles:
-        return "No valid files processed.No valid files found. Please upload supported audio or subtitle files."
 
     # Create outputs for different formats
     markdown_output = ""
@@ -146,11 +134,6 @@ def process_files(files):
     print(f"Files processed. Output generated:\nMarkdown: cleaned_subtitles.md\nDOCX: {docx_output}\nTXT: {txt_output}\nJSON: {json_output}")
 
     # Return file outputs and error messages
-    if wrong_files:
-        error_message = f"Unsupported file types: {', '.join(wrong_files)}"
-    else:
-        error_message = ""
-
     return markdown_output, docx_output, txt_output, json_output, error_message
 
 # Gradio interface function
@@ -188,4 +171,4 @@ gr.Interface(
     inputs=[file_input],
     outputs=[markdown_output, docx_output, txt_output, json_output, error_message],
     title="AI Subtitle Editor",
-    description="Supported audio formats are .mp3, .m4a, .wav, .flac, .ogg, .aac, Supported Subtitle formats are .srt, .vtt, .cc.vtt, .ass, .ssa, .sub, .txt. Other file formats will not supported. Expecting errors due the variaties of patterns of timestamps.").launch()
+    description="Supported audio formats are .mp3, .m4a, .wav, .flac, .ogg, .aac, Supported Subtitle formats are .srt, .vtt, .cc.vtt, .ass, .ssa, .sub, .txt. Other file formats will not supported. Expecting errors due the variaties of patterns of timestamps.I use the whispercpp tiny model in this demo, the result will may not good as you think, just for this demo.").launch()

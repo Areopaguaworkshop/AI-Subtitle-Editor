@@ -1,6 +1,6 @@
 # AI subtitle Editor
 
-The aim of this project is turn the subtitle into a readable written file with slids by using AI, that is Large Language Model (LLM) promts. 
+The final goal of this project is turn the subtitle into a readable written file with slids by using AI, that is Large Language Model (LLM) promts. 
 
 This is my personal project for [GCDFL](https://www.gcdfl.org/). The lectures will generate the cc.vtt or srt files. However, I want to make these files into readable markdown file for Chinese audience. 
 
@@ -31,27 +31,50 @@ This is my personal project for [GCDFL](https://www.gcdfl.org/). The lectures wi
 
 ### first step clone this repository
 
+`
 git clone https://github.com/Areopaguaworkshop/AI-Subtitle-Editor.git
+` 
 
 ### second step 
 
+```
 cd AI-Subtitle-Editor
 
 mv pyproject.toml pyproject-bk.toml
 
 rye init 
 
+```
+
 ### third step
 
+`
 copy whole content of the pyproject-bk.toml into pyproject.toml
+` 
 
 Then run 
 
-rye sync
+`rye sync`
 
 ### four step
 
-python src/rm_time_join_line.py
+`python src/rm_time_join_line.py`
+
+- if you want local whisper with audio transcribe, you can run 
+
+`python src/a_w-whisper`
+
+or 
+
+`python src/a_w_cpp.py` # you will need to dowload the [whispercpp.bin](https://huggingface.co/ggerganov/whisper.cpp/tree/main)
+
+or, if you have the GROQ_API_KEY, you can first 
+
+`export GROQ_API_KEY="put your GROQ_API_KEY here"` 
+
+then run 
+
+`python src/a_w_groq.py` 
 
 - Then you can access the from http://localhost:7860. 
 
