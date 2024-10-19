@@ -1,5 +1,3 @@
-# This version is better than a_w1.py, since it can use both in broader audio and subtitle files. it is an update version of a_w1.py. 
-
 import os
 import re
 import json
