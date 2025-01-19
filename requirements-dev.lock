@@ -10,169 +10,147 @@
 #   universal: false
 
 -e file:.
-aiofiles==23.2.1
-    # via gradio
-annotated-types==0.7.0
-    # via pydantic
 anyio==4.7.0
-    # via gradio
-    # via httpx
     # via starlette
 certifi==2024.12.14
-    # via httpcore
-    # via httpx
     # via requests
 charset-normalizer==3.4.1
     # via requests
 click==8.1.8
     # via marimo
-    # via typer
     # via uvicorn
 docutils==0.21.2
     # via marimo
 duckdb==1.1.3
     # via marimo
-fastapi==0.115.6
-    # via gradio
-ffmpy==0.5.0
-    # via gradio
 filelock==3.16.1
-    # via huggingface-hub
+    # via torch
+    # via triton
 fsspec==2024.12.0
-    # via gradio-client
-    # via huggingface-hub
-gradio==5.9.1
-    # via sub-editor
-gradio-client==1.5.2
-    # via gradio
+    # via torch
 h11==0.14.0
-    # via httpcore
     # via uvicorn
-httpcore==1.0.7
-    # via httpx
-httpx==0.28.1
-    # via gradio
-    # via gradio-client
-    # via safehttpx
-huggingface-hub==0.27.0
-    # via gradio
-    # via gradio-client
 idna==3.10
     # via anyio
-    # via httpx
     # via requests
 itsdangerous==2.2.0
     # via marimo
 jedi==0.19.2
     # via marimo
 jinja2==3.1.5
-    # via gradio
+    # via torch
+llvmlite==0.43.0
+    # via numba
 marimo==0.10.9
     # via sub-editor
 markdown==3.7
     # via marimo
     # via pymdown-extensions
-markdown-it-py==3.0.0
-    # via rich
 markupsafe==2.1.5
-    # via gradio
     # via jinja2
-mdurl==0.1.2
-    # via markdown-it-py
+more-itertools==10.5.0
+    # via openai-whisper
+mpmath==1.3.0
+    # via sympy
 narwhals==1.20.1
     # via marimo
+networkx==3.4.2
+    # via torch
+numba==0.47.0
+    # via openai-whisper
 numpy==2.2.1
-    # via gradio
+    # via numba
+    # via openai-whisper
     # via pandas
-orjson==3.10.13
-    # via gradio
+nvidia-cublas-cu12==12.4.5.8
+    # via nvidia-cudnn-cu12
+    # via nvidia-cusolver-cu12
+    # via torch
+nvidia-cuda-cupti-cu12==12.4.127
+    # via torch
+nvidia-cuda-nvrtc-cu12==12.4.127
+    # via torch
+nvidia-cuda-runtime-cu12==12.4.127
+    # via torch
+nvidia-cudnn-cu12==9.1.0.70
+    # via torch
+nvidia-cufft-cu12==11.2.1.3
+    # via torch
+nvidia-curand-cu12==10.3.5.147
+    # via torch
+nvidia-cusolver-cu12==11.6.1.9
+    # via torch
+nvidia-cusparse-cu12==12.3.1.170
+    # via nvidia-cusolver-cu12
+    # via torch
+nvidia-nccl-cu12==2.21.5
+    # via torch
+nvidia-nvjitlink-cu12==12.4.127
+    # via nvidia-cusolver-cu12
+    # via nvidia-cusparse-cu12
+    # via torch
+nvidia-nvtx-cu12==12.4.127
+    # via torch
+openai-whisper==20240930
 packaging==24.2
-    # via gradio
-    # via gradio-client
-    # via huggingface-hub
     # via marimo
 pandas==2.2.3
-    # via gradio
     # via sub-editor
 parso==0.8.4
     # via jedi
-pillow==11.1.0
-    # via gradio
-pip==24.3.1
-    # via sub-editor
 polars==1.19.0
     # via marimo
 psutil==6.1.1
     # via marimo
 pyarrow==18.1.0
     # via polars
-pydantic==2.10.4
-    # via fastapi
-    # via gradio
-pydantic-core==2.27.2
-    # via pydantic
-pydub==0.25.1
-    # via gradio
 pygments==2.18.0
     # via marimo
-    # via rich
 pymdown-extensions==10.13
     # via marimo
 python-dateutil==2.9.0.post0
     # via pandas
-python-multipart==0.0.20
-    # via gradio
 pytz==2024.2
     # via pandas
 pyyaml==6.0.2
-    # via gradio
-    # via huggingface-hub
     # via marimo
     # via pymdown-extensions
+regex==2024.11.6
+    # via tiktoken
 requests==2.32.3
-    # via huggingface-hub
-rich==13.9.4
-    # via typer
+    # via tiktoken
 ruff==0.8.6
-    # via gradio
     # via marimo
-safehttpx==0.1.6
-    # via gradio
-semantic-version==2.10.0
-    # via gradio
-shellingham==1.5.4
-    # via typer
+setuptools==75.7.0
+    # via numba
+    # via torch
 six==1.17.0
     # via python-dateutil
 sniffio==1.3.1
     # via anyio
 starlette==0.41.3
-    # via fastapi
-    # via gradio
     # via marimo
+sympy==1.13.1
+    # via torch
+tiktoken==0.8.0
+    # via openai-whisper
 tomlkit==0.13.2
-    # via gradio
     # via marimo
+torch==2.5.1
+    # via openai-whisper
 tqdm==4.67.1
-    # via huggingface-hub
-typer==0.15.1
-    # via gradio
+    # via openai-whisper
+triton==3.1.0
+    # via openai-whisper
+    # via torch
 typing-extensions==4.12.2
     # via anyio
-    # via fastapi
-    # via gradio
-    # via gradio-client
-    # via huggingface-hub
-    # via pydantic
-    # via pydantic-core
-    # via typer
+    # via torch
 tzdata==2024.2
     # via pandas
 urllib3==2.3.0
     # via requests
 uvicorn==0.34.0
-    # via gradio
     # via marimo
 websockets==14.1
-    # via gradio-client
     # via marimo
