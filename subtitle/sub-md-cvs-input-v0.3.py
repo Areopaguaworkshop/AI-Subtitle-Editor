@@ -86,7 +86,7 @@ def _(e, parse_subtitle, re):
         """Removes repeated words/phrases from a file."""
         try:
             vtt_df = parse_subtitle(file_path)
-            all_content = "，".join(vtt_df["Content"])
+            all_content = "".join(vtt_df["Content"])
             pattern = r"(([\u4e00-\u9fa5A-Za-z，。！？；：“”（）【】《》、]{1,5}))(\s?\1)+"
             return re.sub(pattern, r"\1", all_content)
         except Exception as error:
@@ -145,7 +145,7 @@ def _(Chinese, English, rm_rep):
             paragraphs.append(''.join(current_paragraph))
 
         # Join paragraphs with newlines
-        segmented_text = ''.join(paragraphs)
+        segmented_text = '\n\n'.join(paragraphs)
 
         return segmented_text
     return (segment,)
