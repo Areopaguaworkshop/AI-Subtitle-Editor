@@ -6,8 +6,6 @@ authors = [
     { name = "ajia", email = "yyjfwoaini@gmail.com" }
 ]
 dependencies = [
-    "marimo[sql]>=0.10.7",
-    "pandas>=2.2.3",
 ]
 readme = "README.md"
 requires-python = ">= 3.9"

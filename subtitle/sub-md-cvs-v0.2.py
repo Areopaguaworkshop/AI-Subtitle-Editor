@@ -1,3 +1,12 @@
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "gradio==5.13.1",
+#     "marimo",
+#     "pandas==2.2.3",
+#     "spacy==3.8.4",
+# ]
+# ///
 import marimo
 
 __generated_with = "0.10.9"
@@ -20,10 +29,10 @@ def _(pd, re):
     def parse_subtitle(file_path):
         """Parses various subtitle formats (.ass, .sub, .srt, .txt, .vtt) into a DataFrame."""
         try:
-            # subtitles = pysrt.open(file_path)
-            # timestamps = [str(sub.start).replace('.', ',') + " --> " + str(sub.end).replace('.', ',') for sub in subtitles]
-            # contents = [sub.text for sub in subtitles]
-            # return pd.DataFrame({"Timestamps": timestamps, "Content": contents})
+            #subtitles = pysrt.open(file_path)
+            #timestamps = [str(sub.start).replace('.', ',') + " --> " + str(sub.end).replace('.', ',') for sub in subtitles]
+            #contents = [sub.text for sub in subtitles]
+            #return pd.DataFrame({"Timestamps": timestamps, "Content": contents})
 
             with open(file_path, 'r', encoding='utf-8-sig') as file:
                 lines = file.readlines()
@@ -44,19 +53,16 @@ def _(pd, re):
             i = 0
             while i < len(lines):
                 line = lines[i].strip()
-                # Improved .sub handling:
-                # Check for common .sub timestamp format
-                if "-->" in line or re.match(r'\d{2}:\d{2}:\d{2},\d{2} --> \d{2}:\d{2}:\d{2},\d{2}', line):
+                #Improved .sub handling:
+                if "-->" in line or re.match(r'\d{2}:\d{2}:\d{2},\d{2} --> \d{2}:\d{2}:\d{2},\d{2}', line): #Check for common .sub timestamp format
                     timestamps.append(line)
                     i += 1
                     current_content = []
-                    # Check for next timestamp
-                    while i < len(lines) and lines[i].strip() and not re.match(r'\d{2}:\d{2}:\d{2},\d{2} --> \d{2}:\d{2}:\d{2},\d{2}', lines[i].strip()):
+                    while i < len(lines) and lines[i].strip() and not re.match(r'\d{2}:\d{2}:\d{2},\d{2} --> \d{2}:\d{2}:\d{2},\d{2}', lines[i].strip()): #Check for next timestamp
                         current_content.append(lines[i].strip())
                         i += 1
                     contents.append(" ".join(current_content))
-                # Handles .ass
-                elif "Dialogue:" in line or re.match(r'{\d+}{\d+}.*', line):
+                elif "Dialogue:" in line or re.match(r'{\d+}{\d+}.*', line): #Handles .ass
                     timestamps.append(line)
                     i += 1
                     current_content = []
@@ -77,7 +83,7 @@ def _(parse_subtitle, re):
         """Removes repeated words/phrases from a file."""
         try:
             vtt_df = parse_subtitle(file_path)
-            all_content = "，".join(vtt_df["Content"])
+            all_content = "".join(vtt_df["Content"])
             pattern = r"(([\u4e00-\u9fa5A-Za-z，。！？；：“”（）【】《》、]{1,5}))(\s?\1)+"
             return re.sub(pattern, r"\1", all_content)
         except Exception as e:
@@ -121,8 +127,7 @@ def _(os, parse_subtitle, rm_rep):
             # Write markdown to file
             with open(markdown_file_path, 'w', encoding='utf-8') as f:
                 f.write(markdown_output)
-            print(f"Markdown file '{
-                  markdown_file_path}' created successfully.")
+            print(f"Markdown file '{markdown_file_path}' created successfully.")
 
             return markdown_output, markdown_file_path, csv_file_path, base_name
 
@@ -135,7 +140,7 @@ def _(os, parse_subtitle, rm_rep):
 def _(gr, process_vtt):
     def create_interface():
         iface = gr.Interface(
-            fn=process_vtt,  # Changed to the new function
+            fn=process_vtt, # Changed to the new function
             inputs=gr.File(label="Upload VTT Subtitle File", type="filepath"),
             outputs=[
                 gr.Textbox(label="Markdown Output"),

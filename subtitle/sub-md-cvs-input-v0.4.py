@@ -1,18 +1,30 @@
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "google-generativeai==0.8.4",
+#     "gradio==5.13.1",
+#     "marimo",
+#     "pandas==2.2.3",
+#     "spacy==3.8.4",
+# ]
+# ///
+
 import marimo
 
-__generated_with = "0.10.9"
+__generated_with = "0.10.15"
 app = marimo.App(width="full")
 
 
 @app.cell
 def _():
-    import gradio as gr
     import marimo as mo
-    import spacy
     import os
     import re
     import pandas as pd
-    return gr, mo, os, pd, re, spacy
+    import spacy
+    from spacy.lang.zh import Chinese  # Import the Chinese language model
+    from spacy.lang.en import English  # Import the English language model
+    return Chinese, English, mo, os, pd, re, spacy
 
 
 @app.cell
@@ -69,7 +81,7 @@ def _(pd, re):
 
 
 @app.cell
-def _(parse_subtitle, re):
+def _(e, parse_subtitle, re):
     def rm_rep(file_path):
         """Removes repeated words/phrases from a file."""
         try:
@@ -77,31 +89,70 @@ def _(parse_subtitle, re):
             all_content = "".join(vtt_df["Content"])
             pattern = r"(([\u4e00-\u9fa5A-Za-z，。！？；：“”（）【】《》、]{1,5}))(\s?\1)+"
             return re.sub(pattern, r"\1", all_content)
-            
-        except Exception as e:
-            return f"An error occurred: {e}"
+        except Exception as error:
+            return f"An error occurred: {e}", None
     return (rm_rep,)
 
 
 @app.cell
-def _(rm_rep, spacy):
-    def rm_oral(file_path):
-        """ Removes the oral words, espcecially ha, um"""
-        nlp = spacy.blank("zh")
+def _(Chinese, English, rm_rep):
+    def segment(file_path):
+        """
+        Segments a text file into paragraphs based on meaning,
+        identifying the language (Chinese or English) and joining
+        the paragraphs with newline characters.
 
-        text = print(rm_rep(file_path))
+        Args:
+        file_path (str): The path to the text file.
 
-        # custom oral word list
-        oral_words={"嗯","啊", "呃", "嘛","唉","哎"}
-        doc =nlp(text)
-        filtered_tokens = [token.text for token in doc if token.text not in oral_words]
+        Returns:
+        str: The segmented text with paragraphs separated by newlines.
+        """
+        text = rm_rep(file_path) 
 
-        return "".join(filtered_tokens)
-    return (rm_oral,)
+        # Detect language
+        if any(char in text for char in '，。？！'):
+            nlp = Chinese()
+        else:
+            nlp = English()
+
+        # Add the sentencizer component to the pipeline
+        nlp.add_pipe("sentencizer")
+
+        doc = nlp(text)
+
+        # Segment into paragraphs based on meaning
+        paragraphs = []
+        current_paragraph = []
+        sentence_count = 0
+        for sent in doc.sents:
+            if sentence_count == 0:
+                current_paragraph.append(sent.text)
+                sentence_count += 1
+            else:
+                # Check if the sentence's meaning is similar to the previous one
+                similarity = sent.similarity(doc[len(current_paragraph) - 1])
+                if similarity > 0.4 or sentence_count < 15:  # Adjust threshold as needed
+                    current_paragraph.append(sent.text)
+                    sentence_count += 1
+                else:
+                    paragraphs.append(''.join(current_paragraph))
+                    current_paragraph = [sent.text]
+                    sentence_count = 1
+
+        # Add the last paragraph
+        if current_paragraph:
+            paragraphs.append(''.join(current_paragraph))
+
+        # Join paragraphs with newlines
+        segmented_text = ''.join(paragraphs)
+
+        return segmented_text
+    return (segment,)
 
 
 @app.cell
-def _(os, parse_subtitle, rm_oral):
+def _(os, parse_subtitle, segment):
     def process_vtt(file_path):
         """Processes various subtitle file types and returns markdown, CSV file path, and filename."""
         try:
@@ -122,7 +173,16 @@ def _(os, parse_subtitle, rm_oral):
             print(f"CSV file '{csv_file_path}' created successfully.")
 
             # Create Markdown
-            markdown_output = rm_oral(file_path)
+            markdown_output = segment(file_path)
+
+            # nlp = spacy.blank("zh")
+
+            # custom oral word list
+            # oral_words={"嗯", "啊", "呃", "嘛"}
+            # doc =nlp(rm_repeat)
+            # filtered_tokens = [token.rm_repeat for token in doc if token.rm_repeat not in oral_words]
+
+            # markdown_output = "".join(filtered_tokens)
 
             # Write markdown to file
             with open(markdown_file_path, 'w', encoding='utf-8') as f:
@@ -133,29 +193,31 @@ def _(os, parse_subtitle, rm_oral):
 
         except Exception as e:
             return f"An error occurred: {e}", None, None, None
+            return (process_vtt,)
     return (process_vtt,)
 
 
 @app.cell
-def _(gr, process_vtt):
-    def create_interface():
-        iface = gr.Interface(
-            fn=process_vtt, # Changed to the new function
-            inputs=gr.File(label="Upload VTT Subtitle File", type="filepath"),
-            outputs=[
-                gr.Textbox(label="Markdown Output"),
-                gr.File(label="Download Markdown", type="filepath"),
-                gr.File(label="Download CSV", type="filepath"),
-                gr.Textbox(label="Filename (without extension)")
-            ],
-            title="subtitle fiel to Markdown/CSV Converter",
-            description="Upload a subtitle file (only surpport .vtt, .srt) to convert it to Markdown and CSV formats.",
-        )
-        return iface
+def _():
+    return
 
-    iface = create_interface()
-    iface.launch()
-    return create_interface, iface
+
+@app.cell
+def _(process_vtt):
+    # Example usagerro
+    file_path = "/home/ajiap/Documents/person/ware11-20250117.vtt"  # Replace with your actual file path
+    markdown_output, markdown_file_path, csv_file_path, base_name = process_vtt(file_path)
+
+    print(f"Markdown Output: {markdown_output}")
+    print(f"Markdown File Path: {markdown_file_path}")
+    print(f"CSV File Path: {csv_file_path}")
+    return (
+        base_name,
+        csv_file_path,
+        file_path,
+        markdown_file_path,
+        markdown_output,
+    )
 
 
 if __name__ == "__main__":
