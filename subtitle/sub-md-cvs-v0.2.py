@@ -1,15 +1,17 @@
 # /// script
 # requires-python = ">=3.12"
 # dependencies = [
-#     "gradio==5.13.1",
+#     "google-generativeai==0.8.4",
+#     "gradio==5.13.2",
 #     "marimo",
 #     "pandas==2.2.3",
 #     "spacy==3.8.4",
 # ]
 # ///
+
 import marimo
 
-__generated_with = "0.10.9"
+__generated_with = "0.10.15"
 app = marimo.App(width="full")
 
 
@@ -21,7 +23,9 @@ def _():
     import os
     import re
     import pandas as pd
-    return gr, mo, os, pd, re, spacy
+    from spacy.lang.zh import Chinese  # Import the Chinese language model
+    from spacy.lang.en import English  # Import the English language model
+    return Chinese, English, gr, mo, os, pd, re, spacy
 
 
 @app.cell
@@ -92,7 +96,64 @@ def _(parse_subtitle, re):
 
 
 @app.cell
-def _(os, parse_subtitle, rm_rep):
+def _(Chinese, English, rm_rep):
+    def segment(file_path):
+            """
+            Segments a text file into paragraphs based on meaning,
+            identifying the language (Chinese or English) and joining
+            the paragraphs with newline characters.
+
+            Args:
+            file_path (str): The path to the text file.
+
+            Returns:
+            str: The segmented text with paragraphs separated by newlines.
+            """
+            text = rm_rep(file_path) 
+
+            # Detect language
+            if any(char in text for char in '，。？！'):
+                nlp = Chinese()
+            else:
+                nlp = English()
+
+            # Add the sentencizer component to the pipeline
+            nlp.add_pipe("sentencizer")
+
+            doc = nlp(text)
+
+            # Segment into paragraphs based on meaning
+            paragraphs = []
+            current_paragraph = []
+            sentence_count = 0
+            for sent in doc.sents:
+                if sentence_count == 0:
+                    current_paragraph.append(sent.text)
+                    sentence_count += 1
+                else:
+                    # Check if the sentence's meaning is similar to the previous one
+                    similarity = sent.similarity(doc[len(current_paragraph) - 1])
+                    if similarity > 0.5 or sentence_count < 15:  # Adjust threshold as needed
+                        current_paragraph.append(sent.text)
+                        sentence_count += 1
+                    else:
+                        paragraphs.append(''.join(current_paragraph))
+                        current_paragraph = [sent.text]
+                        sentence_count = 1
+
+            # Add the last paragraph
+            if current_paragraph:
+                paragraphs.append(''.join(current_paragraph))
+
+            # Join paragraphs with newlines
+            segmented_text = '\n\n'.join(paragraphs)
+
+            return segmented_text
+    return (segment,)
+
+
+@app.cell
+def _(os, parse_subtitle, segment):
     def process_vtt(file_path):
         """Processes various subtitle file types and returns markdown, CSV file path, and filename."""
         try:
@@ -113,7 +174,7 @@ def _(os, parse_subtitle, rm_rep):
             print(f"CSV file '{csv_file_path}' created successfully.")
 
             # Create Markdown
-            markdown_output = rm_rep(file_path)
+            markdown_output = segment(file_path)
 
             # nlp = spacy.blank("zh")
 
