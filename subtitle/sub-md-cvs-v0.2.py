@@ -2,7 +2,7 @@
 # requires-python = ">=3.12"
 # dependencies = [
 #     "google-generativeai==0.8.4",
-#     "gradio==5.13.2",
+#     "gradio==5.16.0",
 #     "marimo",
 #     "pandas==2.2.3",
 #     "spacy==3.8.4",
