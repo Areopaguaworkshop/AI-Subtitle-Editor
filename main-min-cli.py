@@ -1,4 +1,4 @@
-import gradio as gr
+import argparse  # added for command line argument parsing
 import whisper
 import spacy
 import os
@@ -22,24 +22,15 @@ def process_input(file_path, language):  # Modified function signature
     else:
         return process_vtt(file_path)
 
-def create_interface():
-    iface = gr.Interface(
-        fn=process_input,
-        inputs=[
-            gr.File(label="Upload File", type="filepath"),
-            gr.Textbox(label="Transcribe Language (optional)", value="", placeholder="e.g., Chinese, English")
-        ],
-        outputs=[
-            gr.Textbox(label="Markdown Output"),
-            gr.File(label="Download Markdown", type="filepath"),
-            gr.File(label="Download CSV", type="filepath"),
-            gr.Textbox(label="Filename (without extension)")
-        ],
-        title="Subtitle/Audio Converter",
-        description="Uploads an audio or subtitle file and converts it to Markdown and CSV formats.",
-    )
-    return iface
+def main():
+    parser = argparse.ArgumentParser(description="Subtitle/Audio Converter")
+    parser.add_argument("input_file", help="Path to the input file")
+    parser.add_argument("--language", default="", help="Transcribe Language (optional)")
+    args = parser.parse_args()
+
+    result = process_input(args.input_file, args.language)
+    # Output the processed result; customize as needed
+    print(result)
 
 if __name__ == "__main__":
-    iface = create_interface()
-    iface.launch()
+    main()

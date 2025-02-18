@@ -1,22 +1,22 @@
 [project]
-name = "Sub-editor"
+name = "sub-ed"
 version = "0.1.0"
-description = "This is for my personal usage to transform the oral lecture into writen ones."
+description = "Add your description here"
 authors = [
     { name = "ajia", email = "yyjfwoaini@gmail.com" }
 ]
 dependencies = [
-    "marimo>=0.10.17",
-    "pandas>=2.2.3",
-    "spacy>=3.8.4",
-    "ocrmypdf>=16.8.0",
-    "marker-pdf>=1.3.4",
-    "pymupdf>=1.25.2",
-    "gradio>=5.16.0",
     "openai-whisper>=20240930",
+    "gradio>=5.16.0",
+    "moviepy>=2.1.2",
+    "pydub>=0.25.1",
+    "spacy>=3.8.4",
+    "pandas>=2.2.3",
+    "dspy>=2.6.3",
+    "pip>=25.0.1",
 ]
 readme = "README.md"
-requires-python = ">= 3.9"
+requires-python = ">= 3.12"
 
 [build-system]
 requires = ["hatchling"]
@@ -24,12 +24,10 @@ build-backend = "hatchling.build"
 
 [tool.rye]
 managed = true
-dev-dependencies = [
-    "openai-whisper>=20240930",
-]
+dev-dependencies = []
 
 [tool.hatch.metadata]
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/hays_t"]
+packages = ["src/sub_ed"]

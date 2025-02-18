@@ -12,191 +12,216 @@
 -e file:.
 aiofiles==23.2.1
     # via gradio
+aiohappyeyeballs==2.4.6
+    # via aiohttp
+aiohttp==3.11.12
+    # via datasets
+    # via fsspec
+    # via litellm
+aiosignal==1.3.2
+    # via aiohttp
+alembic==1.14.1
+    # via optuna
 annotated-types==0.7.0
     # via pydantic
 anyio==4.8.0
+    # via asyncer
+    # via dspy
     # via gradio
     # via httpx
-    # via pycrdt
+    # via openai
     # via starlette
-beautifulsoup4==4.12.3
-    # via markdownify
+apscheduler==3.11.0
+    # via litellm
+asyncer==0.0.8
+    # via dspy
+attrs==25.1.0
+    # via aiohttp
+    # via jsonschema
+    # via referencing
+backoff==2.2.1
+    # via dspy
+    # via litellm
 blis==1.2.0
     # via thinc
 cachetools==5.5.1
-    # via google-auth
+    # via dspy
 catalogue==2.0.10
     # via spacy
     # via srsly
     # via thinc
-certifi==2024.12.14
+certifi==2025.1.31
     # via httpcore
     # via httpx
     # via requests
 cffi==1.17.1
     # via cryptography
+    # via pynacl
 charset-normalizer==3.4.1
-    # via pdfminer-six
     # via requests
 click==8.1.8
-    # via marimo
-    # via marker-pdf
-    # via pdftext
-    # via surya-ocr
+    # via litellm
+    # via rq
     # via typer
     # via uvicorn
 cloudpathlib==0.20.0
     # via weasel
+cloudpickle==3.1.1
+    # via dspy
+colorlog==6.9.0
+    # via optuna
 confection==0.1.5
     # via thinc
     # via weasel
-cryptography==44.0.0
-    # via pdfminer-six
+cryptography==43.0.3
+    # via litellm
 cymem==2.0.11
     # via preshed
     # via spacy
     # via thinc
-deprecated==1.2.18
-    # via pikepdf
-deprecation==2.1.0
-    # via ocrmypdf
-docutils==0.21.2
-    # via marimo
+datasets==2.14.4
+    # via dspy
+decorator==5.1.1
+    # via moviepy
+dill==0.3.7
+    # via datasets
+    # via multiprocess
+diskcache==5.6.3
+    # via dspy
+distro==1.9.0
+    # via openai
+dnspython==2.7.0
+    # via email-validator
+dspy==2.6.3
+    # via sub-ed
+email-validator==2.2.0
+    # via pydantic
 fastapi==0.115.8
+    # via fastapi-sso
     # via gradio
+    # via litellm
+fastapi-sso==0.16.0
+    # via litellm
 ffmpy==0.5.0
     # via gradio
 filelock==3.17.0
     # via huggingface-hub
     # via torch
-    # via transformers
-filetype==1.2.0
-    # via marker-pdf
-    # via surya-ocr
-fsspec==2024.12.0
+frozenlist==1.5.0
+    # via aiohttp
+    # via aiosignal
+fsspec==2025.2.0
+    # via datasets
     # via gradio-client
     # via huggingface-hub
     # via torch
-ftfy==6.3.1
-    # via marker-pdf
-    # via texify
-google-ai-generativelanguage==0.6.15
-    # via google-generativeai
-google-api-core==2.24.1
-    # via google-ai-generativelanguage
-    # via google-api-python-client
-    # via google-generativeai
-google-api-python-client==2.160.0
-    # via google-generativeai
-google-auth==2.38.0
-    # via google-ai-generativelanguage
-    # via google-api-core
-    # via google-api-python-client
-    # via google-auth-httplib2
-    # via google-generativeai
-google-auth-httplib2==0.2.0
-    # via google-api-python-client
-google-generativeai==0.8.4
-    # via marker-pdf
-googleapis-common-protos==1.66.0
-    # via google-api-core
-    # via grpcio-status
-gradio==5.16.0
-    # via sub-editor
+gradio==5.16.1
+    # via sub-ed
 gradio-client==1.7.0
     # via gradio
-grpcio==1.70.0
-    # via google-api-core
-    # via grpcio-status
-grpcio-status==1.70.0
-    # via google-api-core
+greenlet==3.1.1
+    # via sqlalchemy
+gunicorn==22.0.0
+    # via litellm
 h11==0.14.0
     # via httpcore
     # via uvicorn
 httpcore==1.0.7
     # via httpx
-httplib2==0.22.0
-    # via google-api-python-client
-    # via google-auth-httplib2
 httpx==0.28.1
+    # via dspy
+    # via fastapi-sso
     # via gradio
     # via gradio-client
+    # via litellm
+    # via openai
     # via safehttpx
 huggingface-hub==0.28.1
+    # via datasets
     # via gradio
     # via gradio-client
     # via tokenizers
-    # via transformers
 idna==3.10
     # via anyio
+    # via email-validator
     # via httpx
     # via requests
-img2pdf==0.5.1
-    # via ocrmypdf
-itsdangerous==2.2.0
-    # via marimo
-jedi==0.19.2
-    # via marimo
+    # via yarl
+imageio==2.37.0
+    # via moviepy
+imageio-ffmpeg==0.6.0
+    # via moviepy
+importlib-metadata==8.6.1
+    # via litellm
 jinja2==3.1.5
+    # via dspy
     # via gradio
+    # via litellm
     # via spacy
     # via torch
+jiter==0.8.2
+    # via openai
 joblib==1.4.2
-    # via scikit-learn
+    # via dspy
+json-repair==0.39.0
+    # via dspy
+jsonschema==4.23.0
+    # via litellm
+jsonschema-specifications==2024.10.1
+    # via jsonschema
 langcodes==3.5.0
     # via spacy
 language-data==1.3.0
     # via langcodes
+litellm==1.61.8
+    # via dspy
 llvmlite==0.36.0
     # via numba
-lxml==5.3.0
-    # via pikepdf
-marimo==0.10.17
-    # via sub-editor
+magicattr==0.1.6
+    # via dspy
+mako==1.3.9
+    # via alembic
 marisa-trie==1.2.1
     # via language-data
-markdown==3.7
-    # via marimo
-    # via pymdown-extensions
 markdown-it-py==3.0.0
     # via rich
-markdown2==2.5.3
-    # via marker-pdf
-markdownify==0.13.1
-    # via marker-pdf
-marker-pdf==1.3.4
-    # via sub-editor
 markupsafe==2.1.5
     # via gradio
     # via jinja2
+    # via mako
 mdurl==0.1.2
     # via markdown-it-py
 more-itertools==10.6.0
     # via openai-whisper
+moviepy==2.1.2
+    # via sub-ed
 mpmath==1.3.0
     # via sympy
+multidict==6.1.0
+    # via aiohttp
+    # via yarl
+multiprocess==0.70.15
+    # via datasets
 murmurhash==1.0.12
     # via preshed
     # via spacy
     # via thinc
-narwhals==1.23.0
-    # via marimo
 networkx==3.4.2
     # via torch
 numba==0.53.1
     # via openai-whisper
-numpy==2.2.2
+numpy==2.2.3
     # via blis
+    # via datasets
     # via gradio
+    # via imageio
+    # via moviepy
     # via numba
     # via openai-whisper
-    # via opencv-python
+    # via optuna
     # via pandas
-    # via scikit-learn
-    # via scipy
     # via spacy
     # via thinc
-    # via transformers
 nvidia-cublas-cu12==12.4.5.8
     # via nvidia-cudnn-cu12
     # via nvidia-cusolver-cu12
@@ -228,156 +253,115 @@ nvidia-nvjitlink-cu12==12.4.127
     # via torch
 nvidia-nvtx-cu12==12.4.127
     # via torch
-ocrmypdf==16.8.0
-    # via sub-editor
+oauthlib==3.2.2
+    # via fastapi-sso
+openai==1.63.2
+    # via dspy
+    # via litellm
 openai-whisper==20240930
-    # via sub-editor
-opencv-python==4.11.0.86
-    # via surya-ocr
+    # via sub-ed
+optuna==4.2.1
+    # via dspy
 orjson==3.10.15
     # via gradio
+    # via litellm
 packaging==24.2
-    # via deprecation
+    # via datasets
     # via gradio
     # via gradio-client
+    # via gunicorn
     # via huggingface-hub
-    # via marimo
-    # via ocrmypdf
-    # via pikepdf
+    # via optuna
     # via spacy
     # via thinc
-    # via transformers
     # via weasel
 pandas==2.2.3
+    # via datasets
+    # via dspy
     # via gradio
-    # via sub-editor
-parso==0.8.4
-    # via jedi
-pdfminer-six==20240706
-    # via ocrmypdf
-pdftext==0.5.1
-    # via marker-pdf
-pi-heif==0.21.0
-    # via ocrmypdf
-pikepdf==9.5.1
-    # via img2pdf
-    # via ocrmypdf
+    # via sub-ed
 pillow==10.4.0
     # via gradio
-    # via img2pdf
-    # via marker-pdf
-    # via ocrmypdf
-    # via pi-heif
-    # via pikepdf
-    # via surya-ocr
-    # via texify
-pluggy==1.5.0
-    # via ocrmypdf
+    # via imageio
+    # via moviepy
+pip==25.0.1
+    # via sub-ed
 preshed==3.0.9
     # via spacy
     # via thinc
-proto-plus==1.26.0
-    # via google-ai-generativelanguage
-    # via google-api-core
-protobuf==5.29.3
-    # via google-ai-generativelanguage
-    # via google-api-core
-    # via google-generativeai
-    # via googleapis-common-protos
-    # via grpcio-status
-    # via proto-plus
-psutil==6.1.1
-    # via marimo
-pyasn1==0.6.1
-    # via pyasn1-modules
-    # via rsa
-pyasn1-modules==0.4.1
-    # via google-auth
+proglog==0.1.10
+    # via moviepy
+propcache==0.2.1
+    # via aiohttp
+    # via yarl
+pyarrow==19.0.0
+    # via datasets
 pycparser==2.22
     # via cffi
-pycrdt==0.11.1
-    # via marimo
 pydantic==2.10.6
     # via confection
+    # via dspy
     # via fastapi
-    # via google-generativeai
+    # via fastapi-sso
     # via gradio
-    # via marker-pdf
-    # via pdftext
-    # via pydantic-settings
+    # via litellm
+    # via openai
     # via spacy
-    # via surya-ocr
-    # via texify
     # via thinc
     # via weasel
 pydantic-core==2.27.2
     # via pydantic
-pydantic-settings==2.7.1
-    # via marker-pdf
-    # via pdftext
-    # via surya-ocr
-    # via texify
 pydub==0.25.1
     # via gradio
+    # via sub-ed
 pygments==2.19.1
-    # via marimo
     # via rich
-pymdown-extensions==10.14.1
-    # via marimo
-pymupdf==1.25.2
-    # via sub-editor
-pyparsing==3.2.1
-    # via httplib2
-pypdfium2==4.30.0
-    # via pdftext
-    # via surya-ocr
-    # via texify
+pyjwt==2.10.1
+    # via litellm
+pynacl==1.5.0
+    # via litellm
 python-dateutil==2.9.0.post0
     # via pandas
 python-dotenv==1.0.1
-    # via marker-pdf
-    # via pydantic-settings
-    # via surya-ocr
-    # via texify
-python-multipart==0.0.20
+    # via litellm
+    # via moviepy
+python-multipart==0.0.18
     # via gradio
-pytz==2024.2
+    # via litellm
+pytz==2025.1
     # via pandas
 pyyaml==6.0.2
+    # via datasets
     # via gradio
     # via huggingface-hub
-    # via marimo
-    # via pymdown-extensions
-    # via transformers
-rapidfuzz==3.12.1
-    # via marker-pdf
+    # via litellm
+    # via optuna
+redis==5.2.1
+    # via rq
+referencing==0.36.2
+    # via jsonschema
+    # via jsonschema-specifications
 regex==2024.11.6
-    # via marker-pdf
+    # via dspy
     # via tiktoken
-    # via transformers
 requests==2.32.3
-    # via google-api-core
+    # via datasets
+    # via dspy
     # via huggingface-hub
     # via spacy
     # via tiktoken
-    # via transformers
     # via weasel
 rich==13.9.4
-    # via ocrmypdf
     # via typer
-rsa==4.9
-    # via google-auth
-ruff==0.9.3
+rpds-py==0.22.3
+    # via jsonschema
+    # via referencing
+rq==2.1.0
+    # via litellm
+ruff==0.9.6
     # via gradio
-    # via marimo
 safehttpx==0.1.6
     # via gradio
-safetensors==0.5.2
-    # via transformers
-scikit-learn==1.6.1
-    # via marker-pdf
-scipy==1.15.1
-    # via scikit-learn
 semantic-version==2.10.0
     # via gradio
 setuptools==75.8.0
@@ -389,20 +373,21 @@ setuptools==75.8.0
 shellingham==1.5.4
     # via typer
 six==1.17.0
-    # via markdownify
     # via python-dateutil
 smart-open==7.1.0
     # via weasel
 sniffio==1.3.1
     # via anyio
-soupsieve==2.6
-    # via beautifulsoup4
+    # via openai
 spacy==3.8.4
-    # via sub-editor
+    # via sub-ed
 spacy-legacy==3.0.12
     # via spacy
 spacy-loggers==1.0.5
     # via spacy
+sqlalchemy==2.0.38
+    # via alembic
+    # via optuna
 srsly==2.5.1
     # via confection
     # via spacy
@@ -411,40 +396,30 @@ srsly==2.5.1
 starlette==0.45.3
     # via fastapi
     # via gradio
-    # via marimo
-surya-ocr==0.10.2
-    # via marker-pdf
 sympy==1.13.1
     # via torch
-texify==0.2.1
-    # via marker-pdf
+tenacity==9.0.0
+    # via dspy
 thinc==8.3.4
     # via spacy
-threadpoolctl==3.5.0
-    # via scikit-learn
 tiktoken==0.9.0
+    # via litellm
     # via openai-whisper
 tokenizers==0.21.0
-    # via transformers
+    # via litellm
 tomlkit==0.13.2
     # via gradio
-    # via marimo
 torch==2.6.0
-    # via marker-pdf
     # via openai-whisper
-    # via surya-ocr
-    # via texify
 tqdm==4.67.1
-    # via google-generativeai
+    # via datasets
+    # via dspy
     # via huggingface-hub
-    # via marker-pdf
+    # via openai
     # via openai-whisper
+    # via optuna
+    # via proglog
     # via spacy
-    # via transformers
-transformers==4.48.2
-    # via marker-pdf
-    # via surya-ocr
-    # via texify
 triton==3.2.0
     # via openai-whisper
     # via torch
@@ -453,36 +428,45 @@ typer==0.15.1
     # via spacy
     # via weasel
 typing-extensions==4.12.2
+    # via alembic
     # via anyio
     # via fastapi
-    # via google-generativeai
     # via gradio
     # via gradio-client
     # via huggingface-hub
+    # via openai
     # via pydantic
     # via pydantic-core
+    # via referencing
+    # via sqlalchemy
     # via torch
     # via typer
 tzdata==2025.1
     # via pandas
-uritemplate==4.1.1
-    # via google-api-python-client
+tzlocal==5.3
+    # via apscheduler
+ujson==5.10.0
+    # via dspy
 urllib3==2.3.0
     # via requests
-uvicorn==0.34.0
+uvicorn==0.29.0
     # via gradio
-    # via marimo
+    # via litellm
+uvloop==0.21.0
+    # via litellm
 wasabi==1.1.3
     # via spacy
     # via thinc
     # via weasel
-wcwidth==0.2.13
-    # via ftfy
 weasel==0.4.1
     # via spacy
 websockets==14.2
     # via gradio-client
-    # via marimo
 wrapt==1.17.2
-    # via deprecated
     # via smart-open
+xxhash==3.5.0
+    # via datasets
+yarl==1.18.3
+    # via aiohttp
+zipp==3.21.0
+    # via importlib-metadata

@@ -2,18 +2,14 @@ import os
 import whisper
 import spacy
 import re
-import subprocess
 import pandas as pd
 from spacy.lang.zh import Chinese  # Import the Chinese language model
 from spacy.lang.en import English  # Import the English language model
+from moviepy.audio.io.AudioFileClip import AudioFileClip  # Use AudioFileClip for audio conversion
 
 def parse_subtitle(file_path):
     """Parses various subtitle formats (.ass, .sub, .srt, .txt, .vtt) into a DataFrame."""
     try:
-        #subtitles = pysrt.open(file_path)
-        #timestamps = [str(sub.start).replace('.', ',') + " --> " + str(sub.end).replace('.', ',') for sub in subtitles]
-        #contents = [sub.text for sub in subtitles]
-        #return pd.DataFrame({"Timestamps": timestamps, "Content": contents})
         with open(file_path, 'r', encoding='utf-8-sig', errors='replace') as file:
             lines = file.readlines()
     except FileNotFoundError:
@@ -63,6 +59,33 @@ def rm_rep(file_path):
         return re.sub(pattern, r"\1", all_content)
     except Exception as e:
         return f"An error occurred: {e}"
+
+def transcribe(file_path, language=None):
+    """
+    Transcribes an audio file (assumed to be in WAV format) to a WebVTT file.
+    """
+    base, ext = os.path.splitext(file_path)
+    ext = ext.lower()
+    # Removed audio conversion: assuming file_path is already a WAV file.
+    model = whisper.load_model("large-v3-turbo", device="cpu")
+    # Example: Adjust temperature parameter to reduce transcription randomness
+    # temperature_param = 0.2  # Uncomment and adjust this value as needed
+    if language:
+        # To use temperature, replace the next line with:
+        # result = model.transcribe(file_path, fp16=False, verbose=True, language=language, temperature=temperature_param)
+        result = model.transcribe(file_path, fp16=False, verbose=True, language=language)
+    else:
+        # To use temperature, replace the next line with:
+        # result = model.transcribe(file_path, fp16=False, verbose=True, temperature=temperature_param)
+        result = model.transcribe(file_path, fp16=False, verbose=True)
+    text = result.get("text", "").strip()
+
+    vtt_content = "WEBVTT\n\n00:00:00.000 --> 00:00:10.000\n" + text
+    out_file = os.path.abspath(base + ".vtt")
+    with open(out_file, "w", encoding="utf-8") as f:
+        f.write(vtt_content)
+    
+    return out_file
 
 def segment(file_path):
     """
@@ -133,22 +156,3 @@ def process_vtt(file_path):
         return markdown_output, markdown_file_path, csv_file_path, base_name
     except Exception as e:
         return f"An error occurred: {e}", None, None, None
-
-def transcribe(file_path):
-    """
-    Transcribes an MP3 or M4A audio file to a WebVTT file using CPU.
-    """
-    base, _ = os.path.splitext(file_path)
-    # Removed m4a conversion step, assuming the model supports it directly
-    model = whisper.load_model("large-v3-turbo", device="cpu")
-    result = model.transcribe(file_path, fp16=False, verbose=True)
-    text = result.get("text", "").strip()
-
-    # Create simple VTT output. For production, cue timings should be generated dynamically.
-    vtt_content = "WEBVTT\n\n00:00:00.000 --> 00:00:10.000\n" + text
-
-    out_file = base + ".vtt"
-    with open(out_file, "w", encoding="utf-8") as f:
-        f.write(vtt_content)
-    
-    return out_file
