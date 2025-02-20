@@ -7,11 +7,11 @@ authors = [
 ]
 dependencies = [
     "openai-whisper>=20240930",
-    "gradio>=5.16.0",
+    "gradio>=5.16.1",
     "moviepy>=2.1.2",
     "pydub>=0.25.1",
-    "spacy>=3.8.4",
     "pandas>=2.2.3",
+    "spacy>=3.8.4",
     "dspy>=2.6.3",
     "pip>=25.0.1",
 ]

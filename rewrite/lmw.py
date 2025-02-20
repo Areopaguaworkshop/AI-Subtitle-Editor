@@ -11,24 +11,22 @@ def rewrite_text(file_path):
     """
     os.environ["GEMINI_API_KEY"] = "GEMENI_API_KEY"
     lm = dspy.LM("gemini/gemini-1.5-flash")
-    """
     # Previous configuration:
-    # lm=dspy.LM(model='ollama/deepseek-r1:8b', base_url="http://localhost:11434", max_tokens=1000, timeout_s=600)
-    # Previous configuration using ollama model:
+    # Commented out HuggingFace configuration:
     lm = dspy.LM(
-        model="ollama/deepseek-r1",
+        model="huggingface/openbmb/MiniCPM-o2_6",
+        provider="huggingface",  # Added provider parameter to resolve error
+        max_tokens=15000,
+        timeout_s=1200,
+    #     token=os.environ.get('HF_ACCESS_TOKEN')  # Provide your HuggingFace access token via env variable
+    )
+    """
+    lm = dspy.LM(
+        model="ollama/qwen2.5",
         base_url="http://localhost:11434",
-        max_tokens=150000,
+        max_tokens=25000,
         timeout_s=1200,
     )
-    # Commented out HuggingFace configuration:
-    # lm = dspy.LM(
-    #     model="huggingface/google/flan-t5-large",
-    #     provider="huggingface",  # Added provider parameter to resolve error
-    #     max_tokens=1000,
-    #     timeout_s=1200,
-    #     token=os.environ.get('HF_ACCESS_TOKEN')  # Provide your HuggingFace access token via env variable
-    # )
     dspy.configure(lm=lm)
     language = "en"
     # Load the appropriate spacy model based on the language
@@ -37,7 +35,8 @@ def rewrite_text(file_path):
     elif language == "en":
         nlp = spacy.load("en_core_web_sm")
     else:
-        raise ValueError("Invalid language. Supported languages are 'zh' and 'en'.")
+        raise ValueError(
+            "Invalid language. Supported languages are 'zh' and 'en'.")
 
     # Read the text from the file
     from utils import parse_subtitle  # assuming parse_subtitle is defined in utils.py
