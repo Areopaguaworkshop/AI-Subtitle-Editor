@@ -84,9 +84,8 @@ def transcribe(file_path, language=None):
 
 def segment(file_path):
     """
-    Segments a text file into paragraphs based on meaning,
-    identifying the language (Chinese or English) and joining
-    the paragraphs with newline characters.
+    Segments a text file into paragraphs by grouping every 12 sentences.
+    Identifies the language (Chinese or English) and returns the paragraphs joined with double newlines.
     """
     text = rm_rep(file_path) 
 
@@ -100,32 +99,71 @@ def segment(file_path):
     nlp.add_pipe("sentencizer")
     doc = nlp(text)
 
-    # Segment into paragraphs based on meaning
     paragraphs = []
     current_paragraph = []
     sentence_count = 0
     for sent in doc.sents:
-        if sentence_count == 0:
-            current_paragraph.append(sent.text)
-            sentence_count += 1
-        else:
-            # Check if the sentence's meaning is similar to the previous one
-            similarity = sent.similarity(doc[len(current_paragraph) - 1])
-            if similarity > 0.5 or sentence_count < 15:  # Adjust threshold as needed
-                current_paragraph.append(sent.text)
-                sentence_count += 1
-            else:
-                paragraphs.append(''.join(current_paragraph))
-                current_paragraph = [sent.text]
-                sentence_count = 1
+        current_paragraph.append(sent.text)
+        sentence_count += 1
+        if sentence_count >= 8:
+            paragraphs.append(''.join(current_paragraph))
+            current_paragraph = []
+            sentence_count = 0
 
-    # Add the last paragraph
     if current_paragraph:
         paragraphs.append(''.join(current_paragraph))
 
-    # Join paragraphs with newlines
     segmented_text = '\n\n'.join(paragraphs)
     return segmented_text
+
+def rewrite_text(file_path):
+    """Rewrites text by first segmenting the file into paragraphs,
+    then rewriting each paragraph one at a time."""
+    import dspy
+    import spacy
+    # Use the segment function to segment the text into paragraphs
+    segmented_text = segment(file_path)
+    # Assume paragraphs are separated by double newlines
+    paragraphs = segmented_text.split("\n\n")
+    
+    # Set up the language and spacy model
+    language = "en"
+    if language == "zh":
+        nlp = spacy.load("zh_core_web_sm")
+    elif language == "en":
+        nlp = spacy.load("en_core_web_sm")
+    else:
+        raise ValueError("Invalid language. Supported languages are 'zh' and 'en'.")
+    
+    # Configure the LM (using the example ollama model)
+    lm = dspy.LM(
+        model="ollama/qwen2.5",
+        base_url="http://localhost:11434",
+        max_tokens=50000,
+        timeout_s=3600,
+        temperature=0.2, 
+    )
+    dspy.configure(lm=lm)
+    
+    rewritten_paragraphs = []
+    # Loop over paragraphs and rewrite each one individually
+    for para in paragraphs:
+        # Define the rewriting signature for a paragraph
+        class ParaRewrite(dspy.Signature):
+            """
+            重写此段，将口语表达变成书面表达，确保意思不变。
+            确保重写后的文本长度不低于原文的95%。
+            """
+            text: str = dspy.InputField(desc="需要重写的口语讲座")
+            rewritten: str = dspy.OutputField(desc="重写后的段落")
+        
+        rewrite = dspy.ChainOfThought(ParaRewrite)
+        response = rewrite(text=para)
+        rewritten_paragraphs.append(response.rewritten)
+    
+    # Join rewritten paragraphs with double newlines
+    rewritten_text = "\n\n".join(rewritten_paragraphs)
+    return rewritten_text
 
 def process_vtt(file_path):
     """Processes various subtitle file types and returns markdown, CSV file path, and filename."""
@@ -141,7 +179,7 @@ def process_vtt(file_path):
         print(f"CSV file '{csv_file_path}' created successfully.")
 
         # Create Markdown
-        markdown_output = segment(file_path)
+        markdown_output = rewrite_text(file_path)
 
         # Write markdown to file
         with open(markdown_file_path, 'w', encoding='utf-8') as f:

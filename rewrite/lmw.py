@@ -5,13 +5,14 @@ import re
 import pandas as pd
 import dspy
 
-
 def rewrite_text(file_path):
     """Rewrites text from oral to written form using LM of all kinds."""
     """
     os.environ["GEMINI_API_KEY"] = "GEMENI_API_KEY"
     lm = dspy.LM("gemini/gemini-1.5-flash")
     # Previous configuration:
+    # lm=dspy.LM(model='ollama/deepseek-r1:8b', base_url="http://localhost:11434", max_tokens=1000, timeout_s=600)
+    # Previous configuration using ollama model:
     # Commented out HuggingFace configuration:
     lm = dspy.LM(
         model="huggingface/openbmb/MiniCPM-o2_6",
@@ -22,9 +23,9 @@ def rewrite_text(file_path):
     )
     """
     lm = dspy.LM(
-        model="ollama/qwen2.5",
+        model="ollama/MiniCPM-o-2_6-gguf",
         base_url="http://localhost:11434",
-        max_tokens=25000,
+        max_tokens=15000,
         timeout_s=1200,
     )
     dspy.configure(lm=lm)
@@ -35,12 +36,10 @@ def rewrite_text(file_path):
     elif language == "en":
         nlp = spacy.load("en_core_web_sm")
     else:
-        raise ValueError(
-            "Invalid language. Supported languages are 'zh' and 'en'.")
+        raise ValueError("Invalid language. Supported languages are 'zh' and 'en'.")
 
     # Read the text from the file
     from utils import parse_subtitle  # assuming parse_subtitle is defined in utils.py
-
     vtt_df = parse_subtitle(file_path)
     text = "".join(vtt_df["Content"])
     # with open(file_path, 'r', encoding='utf-8-sig') as f:

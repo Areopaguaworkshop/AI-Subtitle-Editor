@@ -1,10 +1,7 @@
-from utils import transcribe, process_vtt, parse_subtitle, segment
+from ut1 import transcribe, process_vtt
 from spacy.lang.en import English  # Import the English language model
 from spacy.lang.zh import Chinese  # Import the Chinese language model
-from lmt import rewrite_text  # Importing the module containing rewrite_text
 import os
-import spacy
-import whisper
 import gradio as gr
 import sys
 import os
@@ -18,20 +15,17 @@ def process_input(file_path, language):  # Modified function signature
     _, ext = os.path.splitext(file_path)
     ext = ext.lower()
     audio_exts = {".mp3", ".wav", ".flac", ".aac", ".ogg", "webm", ".m4a"}
-    if ext in audio_exts:
+    if (ext in audio_exts):
         # Use language parameter if provided, otherwise default to None
         lang = language if language.strip() else None
         vtt_file = transcribe(file_path, language=lang)
     else:
         vtt_file = file_path
 
-    # First, rewrite the text
-    rewritten = rewrite_text(vtt_file)
-    # Then, process the VTT into Markdown and CSV files
-    markdown_output, markdown_file_path, csv_file_path, base_name = process_vtt(
-        vtt_file
-    )
-    return rewritten, markdown_file_path, csv_file_path, base_name
+    # Get result from process_vtt and ensure result has exactly 4 values
+    result = process_vtt(vtt_file)
+    # Slice to first 4 items in case more are returned
+    return result[:4]
 
 
 def create_interface():

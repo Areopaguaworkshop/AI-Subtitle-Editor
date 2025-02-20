@@ -30,6 +30,7 @@ anyio==4.8.0
     # via gradio
     # via httpx
     # via openai
+    # via pycrdt
     # via starlette
 apscheduler==3.11.0
     # via litellm
@@ -61,6 +62,7 @@ charset-normalizer==3.4.1
     # via requests
 click==8.1.8
     # via litellm
+    # via marimo
     # via rq
     # via typer
     # via uvicorn
@@ -92,8 +94,12 @@ distro==1.9.0
     # via openai
 dnspython==2.7.0
     # via email-validator
+docutils==0.21.2
+    # via marimo
 dspy==2.6.3
     # via sub-ed
+duckdb==1.2.0
+    # via marimo
 email-validator==2.2.0
     # via pydantic
 fastapi==0.115.8
@@ -154,6 +160,10 @@ imageio-ffmpeg==0.6.0
     # via moviepy
 importlib-metadata==8.6.1
     # via litellm
+itsdangerous==2.2.0
+    # via marimo
+jedi==0.19.2
+    # via marimo
 jinja2==3.1.5
     # via dspy
     # via gradio
@@ -182,8 +192,13 @@ magicattr==0.1.6
     # via dspy
 mako==1.3.9
     # via alembic
+marimo==0.11.7
+    # via sub-ed
 marisa-trie==1.2.1
     # via language-data
+markdown==3.7
+    # via marimo
+    # via pymdown-extensions
 markdown-it-py==3.0.0
     # via rich
 markupsafe==2.1.5
@@ -207,6 +222,8 @@ murmurhash==1.0.12
     # via preshed
     # via spacy
     # via thinc
+narwhals==1.27.1
+    # via marimo
 networkx==3.4.2
     # via torch
 numba==0.61.0
@@ -272,6 +289,7 @@ packaging==24.2
     # via gradio-client
     # via gunicorn
     # via huggingface-hub
+    # via marimo
     # via optuna
     # via spacy
     # via thinc
@@ -281,12 +299,16 @@ pandas==2.2.3
     # via dspy
     # via gradio
     # via sub-ed
+parso==0.8.4
+    # via jedi
 pillow==10.4.0
     # via gradio
     # via imageio
     # via moviepy
 pip==25.0.1
     # via sub-ed
+polars==1.22.0
+    # via marimo
 preshed==3.0.9
     # via spacy
     # via thinc
@@ -295,10 +317,15 @@ proglog==0.1.10
 propcache==0.2.1
     # via aiohttp
     # via yarl
+psutil==7.0.0
+    # via marimo
 pyarrow==19.0.1
     # via datasets
+    # via polars
 pycparser==2.22
     # via cffi
+pycrdt==0.11.1
+    # via marimo
 pydantic==2.10.6
     # via confection
     # via dspy
@@ -316,9 +343,12 @@ pydub==0.25.1
     # via gradio
     # via sub-ed
 pygments==2.19.1
+    # via marimo
     # via rich
 pyjwt==2.10.1
     # via litellm
+pymdown-extensions==10.14.3
+    # via marimo
 pynacl==1.5.0
     # via litellm
 python-dateutil==2.9.0.post0
@@ -336,7 +366,9 @@ pyyaml==6.0.2
     # via gradio
     # via huggingface-hub
     # via litellm
+    # via marimo
     # via optuna
+    # via pymdown-extensions
 redis==5.2.1
     # via rq
 referencing==0.36.2
@@ -361,6 +393,7 @@ rq==2.1.0
     # via litellm
 ruff==0.9.6
     # via gradio
+    # via marimo
 safehttpx==0.1.6
     # via gradio
 semantic-version==2.10.0
@@ -388,6 +421,8 @@ spacy-loggers==1.0.5
 sqlalchemy==2.0.38
     # via alembic
     # via optuna
+sqlglot==26.6.0
+    # via marimo
 srsly==2.5.1
     # via confection
     # via spacy
@@ -396,6 +431,7 @@ srsly==2.5.1
 starlette==0.45.3
     # via fastapi
     # via gradio
+    # via marimo
 sympy==1.13.1
     # via torch
 tenacity==9.0.0
@@ -409,6 +445,7 @@ tokenizers==0.19.1
     # via litellm
 tomlkit==0.13.2
     # via gradio
+    # via marimo
 torch==2.6.0
     # via openai-whisper
 tqdm==4.67.1
@@ -452,6 +489,7 @@ urllib3==2.3.0
 uvicorn==0.29.0
     # via gradio
     # via litellm
+    # via marimo
 uvloop==0.21.0
     # via litellm
 wasabi==1.1.3
@@ -462,6 +500,7 @@ weasel==0.4.1
     # via spacy
 websockets==14.2
     # via gradio-client
+    # via marimo
 wrapt==1.17.2
     # via smart-open
 xxhash==3.5.0

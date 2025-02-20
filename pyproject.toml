@@ -14,6 +14,7 @@ dependencies = [
     "spacy>=3.8.4",
     "dspy>=2.6.3",
     "pip>=25.0.1",
+    "marimo[sql]>=0.11.7",
 ]
 readme = "README.md"
 requires-python = ">= 3.12"
