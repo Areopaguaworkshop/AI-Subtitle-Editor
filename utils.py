@@ -135,24 +135,22 @@ def rewrite_text(file_path):
     else:
         raise ValueError("Invalid language. Supported languages are 'zh' and 'en'.")
     
-    # Configure the LM (using the example ollama model)
+    # Configure the LM WITHOUT hard-coding 'model'
     lm = dspy.LM(
-        model="ollama/qwen2.5",
         base_url="http://localhost:11434",
         max_tokens=50000,
         timeout_s=3600,
-        temperature=0.2, 
+        temperature=0.2
     )
     dspy.configure(lm=lm)
     
     rewritten_paragraphs = []
     # Loop over paragraphs and rewrite each one individually
     for para in paragraphs:
-        # Define the rewriting signature for a paragraph
         class ParaRewrite(dspy.Signature):
             """
             重写此段，将口语表达变成书面表达，确保意思不变。
-            确保重写后的文本长度不低于原文的95%。
+            保证重写后的文本长度不少于原文的95%。
             """
             text: str = dspy.InputField(desc="需要重写的口语讲座")
             rewritten: str = dspy.OutputField(desc="重写后的段落")
@@ -161,7 +159,6 @@ def rewrite_text(file_path):
         response = rewrite(text=para)
         rewritten_paragraphs.append(response.rewritten)
     
-    # Join rewritten paragraphs with double newlines
     rewritten_text = "\n\n".join(rewritten_paragraphs)
     return rewritten_text
 
